@@ -29,7 +29,7 @@ export default function Footer() {
       <div class="text-gray-500 space-y-2 text-right">
         <div class="text-xs">
           Copyright © 2023-Present &nbsp;
-          <a href="" target="_blank" class="hover:text-black">
+          <a href="https://github.com/lirc572" target="_blank" class="hover:text-black">
             lirc572
           </a>
           <br />
@@ -37,7 +37,7 @@ export default function Footer() {
         </div>
 
         <a
-          href="https://github.com/lirc572"
+          href="https://github.com/lirc572/XPD.ICU"
           class="inline-block hover:text-black"
         >
           <BrandGithub />
