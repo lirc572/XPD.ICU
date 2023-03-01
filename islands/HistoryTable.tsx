@@ -52,7 +52,7 @@ export default function HistoryTable({ data }: Props) {
                 {item.status_cn}
               </td>
               <td class="px-6 py-4">
-                {item.desc_cn}
+                {item.desc_full}
               </td>
             </tr>
           ))}

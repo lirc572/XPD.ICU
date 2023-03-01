@@ -1,23 +1,21 @@
 import { DOMParser } from "https://deno.land/x/deno_dom@v0.1.36-alpha/deno-dom-wasm.ts";
 
 export interface TrackingInfo {
-  bill_id: string | undefined;
-  channel_id: string | undefined;
-  package_type: string | undefined;
-  country_cn: string | undefined;
-  country_en: string | undefined;
-  last_status_time: string | undefined;
-  last_status_location_cn: string | undefined;
-  last_status_desc_cn: string | undefined;
-  last_status_desc_en: string | undefined;
-  num_packages: string | undefined;
-  weight: string | undefined;
-  track_status: string | undefined;
+  bill_id: string | null;
+  channel_id: string | null;
+  package_type: string | null;
+  country_cn: string | null;
+  country_en: string | null;
+  last_status_time: string | null;
+  last_status_location_cn: string | null;
+  last_status_desc_full: string | null;
+  num_packages: string | null;
+  weight: string | null;
+  track_status: string | null;
   history: {
-    time: string | undefined;
-    status_cn: string | undefined;
-    desc_cn: string | undefined;
-    desc_en: string | undefined;
+    time: string | null;
+    status_cn: string | null;
+    desc_full: string | null;
   }[];
 }
 
@@ -54,25 +52,23 @@ export async function getTrackingInfo(oid: string, verbose = true) {
   }
   const trackElem = xmlDoc.getElementsByTagName("track")[0];
   const result = {
-    bill_id: trackElem.getAttribute("billid") ?? undefined,
-    channel_id: trackElem.getAttribute("rchannelid") ?? undefined,
-    package_type: trackElem.getAttribute("goodstype") ?? undefined,
-    country_cn: trackElem.getAttribute("country") ?? undefined,
-    country_en: trackElem.getAttribute("countryEn") ?? undefined,
-    last_status_time: trackElem.getAttribute("sdate") ?? undefined,
-    last_status_location_cn: trackElem.getAttribute("desti") ?? undefined,
-    last_status_desc_cn: trackElem.getAttribute("intro")?.split("  ")[0],
-    last_status_desc_en: trackElem.getAttribute("intro")?.split("  ")[1],
-    num_packages: trackElem.getAttribute("goodsnum") ?? undefined,
-    weight: trackElem.getAttribute("rweight") ?? undefined,
-    track_status: trackElem.getAttribute("trackstatus") ?? undefined, // what is this?
+    bill_id: trackElem.getAttribute("billid"),
+    channel_id: trackElem.getAttribute("rchannelid"),
+    package_type: trackElem.getAttribute("goodstype"),
+    country_cn: trackElem.getAttribute("country"),
+    country_en: trackElem.getAttribute("countryEn"),
+    last_status_time: trackElem.getAttribute("sdate"),
+    last_status_location_cn: trackElem.getAttribute("desti"),
+    last_status_desc_full: trackElem.getAttribute("intro"),
+    num_packages: trackElem.getAttribute("goodsnum"),
+    weight: trackElem.getAttribute("rweight"),
+    track_status: trackElem.getAttribute("trackstatus"), // what is this?
     history: Array.from(xmlDoc.getElementsByTagName("trackitem")).map(
       (item) => {
         return {
-          time: item.getAttribute("sdate") ?? undefined,
-          status_cn: item.getAttribute("place") ?? undefined,
-          desc_cn: item.getAttribute("intro")?.split("  ")[0],
-          desc_en: item.getAttribute("intro")?.split("  ")[1],
+          time: item.getAttribute("sdate"),
+          status_cn: item.getAttribute("place"),
+          desc_full: item.getAttribute("intro"),
         };
       },
     ),

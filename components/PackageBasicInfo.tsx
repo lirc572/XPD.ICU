@@ -36,7 +36,7 @@ export default function PackageBasicInfo({ data }: Props) {
               {data.channel_id}
             </td>
             <td class="px-6 py-4">
-              {data.last_status_desc_cn}
+              {data.last_status_desc_full}
             </td>
             <td class="px-6 py-4">
               {data.last_status_time}
