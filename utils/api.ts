@@ -21,8 +21,10 @@ export interface TrackingInfo {
   }[];
 }
 
-export async function getTrackingInfo(oid: string) {
-  console.log('Requesting tracking info for order ID', oid);
+export async function getTrackingInfo(oid: string, verbose = true) {
+  if (verbose) {
+    console.log("Requesting tracking info for order ID", oid);
+  }
   const url = "http://gzdgj.kingtrans.net/WebTrack?action=repeat";
   const res = await fetch(url, {
     "headers": {
