@@ -6,7 +6,7 @@ import OrderForm from "../islands/OrderForm.tsx";
 export default function Home() {
   return (
     <div
-      class="w-screen h-screen flex flex-col bg-gray-200"
+      class="w-screen min-h-screen flex flex-col bg-gray-200 bg-repeat"
       style="background-image: url(/grid.svg)"
     >
       <Head>
