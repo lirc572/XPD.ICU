@@ -27,6 +27,17 @@ export default function About() {
           </a>.
         </p>
         <p class="my-6">
+          Contact{" "}
+          <a
+            href="mailto:lirc572@gmail.com"
+            target="_blank"
+            class="text-blue-500"
+          >
+            lirc572@gmail.com
+          </a>{" "}
+          for removal request.
+        </p>
+        <p class="my-6">
           Official tracking website:{" "}
           <a
             href="http://gzdgj.kingtrans.net/WebTrack"
