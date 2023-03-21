@@ -20,18 +20,48 @@ export interface TrackingInfo {
 }
 
 export async function getTrackingInfo(oid: string, verbose = true) {
+  const res0 = await fetch("http://gzdgj.kingtrans.net/WebTrack", {
+    "headers": {
+      "accept":
+        "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
+      "accept-language":
+        "en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7,ja;q=0.6,zh-TW;q=0.5",
+      "cache-control": "max-age=0",
+      "upgrade-insecure-requests": "1",
+    },
+    "referrerPolicy": "strict-origin-when-cross-origin",
+    "body": null,
+    "method": "GET",
+  });
+  const cookie = res0.headers.get("set-cookie")?.split(";")[0] || "";
+  if (verbose) {
+    console.log("Got cookie:", cookie);
+  }
+  await fetch("http://gzdgj.kingtrans.net/WebTrack?action=list", {
+    "headers": {
+      "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
+      "accept-language": "en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7,ja;q=0.6,zh-TW;q=0.5",
+      "cache-control": "max-age=0",
+      "content-type": "application/x-www-form-urlencoded",
+      "upgrade-insecure-requests": "1",
+      "cookie": cookie,
+      "Referer": "http://gzdgj.kingtrans.net/WebTrack",
+      "Referrer-Policy": "strict-origin-when-cross-origin",
+    },
+    "body": `language=zh&istrack=false&bills=${oid}&Submit=%E6%9F%A5%E8%AF%A2`,
+    "method": "POST"
+  });
   if (verbose) {
     console.log("Requesting tracking info for order ID", oid);
   }
-  const url = "http://gzdgj.kingtrans.net/WebTrack?action=repeat";
-  const res = await fetch(url, {
+  const res = await fetch("http://gzdgj.kingtrans.net/WebTrack?action=repeat", {
     "headers": {
       "accept": "application/xml, text/xml, */*; q=0.01",
       "accept-language":
         "en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7,ja;q=0.6,zh-TW;q=0.5",
       "content-type": "application/x-www-form-urlencoded; charset=UTF-8",
       "x-requested-with": "XMLHttpRequest",
-      "cookie": "JSESSIONID=63299F963694DA829F6779D5FCC51172",
+      "cookie": cookie,
       "Referer": "http://gzdgj.kingtrans.net/WebTrack?action=list",
       "Referrer-Policy": "strict-origin-when-cross-origin",
     },
